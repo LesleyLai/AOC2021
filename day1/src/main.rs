@@ -1,10 +1,10 @@
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 
-fn count_increases(numbers: &Vec<i32>) -> i32 {
+fn count_increases(numbers: &Vec<i32>) -> usize {
     numbers.windows(2)
-        .map(|w| if (w[1] - w[0]) > 0 { 1 } else { 0 })
-        .reduce(|x, y| x + y).unwrap()
+        .filter(|w| w[1] > w[0])
+        .count()
 }
 
 fn part_one(numbers: &Vec<i32>) {
