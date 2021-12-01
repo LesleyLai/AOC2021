@@ -1,20 +1,19 @@
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 
-fn count_increases(numbers: &Vec<i32>) -> usize {
-    numbers.windows(2)
-        .filter(|w| w[1] > w[0])
+fn count_increases(numbers: &Vec<i32>, window_size: usize) -> usize {
+    numbers.windows(window_size + 1)
+        .filter(|w| w[window_size] > w[0])
         .count()
 }
 
 fn part_one(numbers: &Vec<i32>) {
-    println!("{}", count_increases(numbers));
+    println!("{}", count_increases(numbers, 1));
 }
 
 fn part_two(numbers: &Vec<i32>) {
-    let windowed_sums: Vec<_> = numbers.windows(3)
-        .map(|w| w[0] + w[1] + w[2]).collect();
-    println!("{}", count_increases(&windowed_sums));
+    // (b + c + d) - (a + b + c) = d - a
+    println!("{}", count_increases(numbers, 3));
 }
 
 fn main() {
