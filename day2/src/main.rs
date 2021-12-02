@@ -26,7 +26,6 @@ fn part1(commands: &Vec<(&'static str, i32)>) {
             .fold(Submarine::new(), |acc, (dir, distance)|
                 match dir {
                     &"forward" => Submarine { horizontal: acc.horizontal + distance, ..acc },
-                    &"backward" => Submarine { horizontal: acc.horizontal - distance, ..acc },
                     &"up" => Submarine { depth: acc.depth - distance, ..acc },
                     &"down" => Submarine { depth: acc.depth + distance, ..acc },
                     _ => panic!("Format error!")
@@ -43,12 +42,6 @@ fn part2(commands: &Vec<(&'static str, i32)>) {
                         Submarine {
                             horizontal: acc.horizontal + distance,
                             depth: acc.depth + acc.aim * distance,
-                            ..acc
-                        },
-                    &"backward" =>
-                        Submarine {
-                            horizontal: acc.horizontal - distance,
-                            depth: acc.depth - acc.aim * distance,
                             ..acc
                         },
                     &"up" => Submarine { aim: acc.aim - distance, ..acc },
