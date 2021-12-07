@@ -21,18 +21,19 @@ fn find_least_fuel2(input: &[i32]) -> i32 {
     // ternary search
     let mut left = *input.iter().min().unwrap();
     let mut right = *input.iter().max().unwrap();
-    while (right - left) > 2 {
+    let find_move_cost2 = |left| find_move_cost2(input, left);
+    while (right - left) > 3 {
         let left_third = left + (right - left) / 3;
         let right_third = right - (right - left) / 3;
 
-        if find_move_cost2(input, left) < find_move_cost2(input, right) {
+        if find_move_cost2(left_third) < find_move_cost2(right_third) {
             right = right_third
         } else {
             left = left_third
         }
     }
 
-    find_move_cost2(input, (left + right) / 2)
+    (left..=right).map(|n| find_move_cost2(n)).min().unwrap()
 }
 
 fn main() {
